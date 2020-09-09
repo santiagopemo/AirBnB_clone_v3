@@ -18,7 +18,7 @@ def close_storage(self):
 
 if __name__ == "__main__":
     app.run(
-        host='0.0.0.0'),
-        port='5000'),
+         host=getenv('HBNB_API_HOST', default='0.0.0.0'),
+        port=getenv('HBNB_API_PORT ', default='5000'),
         threaded=True
     )
