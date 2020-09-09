@@ -11,7 +11,7 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 
 @app.teardown_appcontext
-def teardown_storage(self):
+def close_storage(self):
     """Calls storage.close()"""
     storage.close()
 
