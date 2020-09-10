@@ -27,3 +27,10 @@ class User(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initializes user"""
         super().__init__(*args, **kwargs)
+
+    def __setattr__(self, attribute, value):
+        """Executes when setting a attribute to a user"""
+        if attribute == 'password':
+            import hashlib
+            value = hashlib.md5(value.encode()).hexdigest()
+        super().__setattr__(attribute, value)
