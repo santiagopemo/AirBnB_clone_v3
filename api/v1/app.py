@@ -4,8 +4,10 @@ from flask import Flask, Blueprint, jsonify
 from api.v1.views import app_views
 from os import getenv
 from models import storage
+from flask_cors import CORS
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 app.register_blueprint(app_views)
 app.url_map.strict_slashes = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
