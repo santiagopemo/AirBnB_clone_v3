@@ -1,5 +1,7 @@
-# AirBnB Clone - The Console
-The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
+# AirBnB Clone - RESTful API
+Rest API is a software architectural style for Backend.
+Rest = “REpresentational State Transfer”. API = Application Programming Interface
+Its purpose is to induce performance, scalability, simplicity, modifiability, visibility, portability, and reliability.
 
 #### Functionalities of this command interpreter:
 * Create a new object (ex: a new User or a new Place)
@@ -7,6 +9,7 @@ The console is the first segment of the AirBnB project at Holberton School that 
 * Do operations on objects (count, compute stats, etc...)
 * Update attributes of an object
 * Destroy an object
+* unittest
 
 ## Table of Content
 * [Environment](#environment)
@@ -22,8 +25,8 @@ The console is the first segment of the AirBnB project at Holberton School that 
 This project is interpreted/tested on Ubuntu 14.04 LTS using python3 (version 3.4.3)
 
 ## Installation
-* Clone this repository: `git clone "https://github.com/alexaorrico/AirBnB_clone.git"`
-* Access AirBnb directory: `cd AirBnB_clone`
+* Clone this repository: `git clone "https://github.com/alexaorrico/AirBnB_clone_v2.git"`
+* Access AirBnb directory: `cd AirBnB_clone_v2`
 * Run hbnb(interactively): `./console` and enter command
 * Run hbnb(non-interactively): `echo "<command>" | ./console.py`
 
@@ -46,6 +49,7 @@ List of commands this console current supports:
 * `def save(self)` - Updates the attribute `updated_at` with the current datetime
 * `def to_dict(self)` - returns a dictionary containing all keys/values of the instance
 
+
 Classes inherited from Base Model:
 * [amenity.py](/models/amenity.py)
 * [city.py](/models/city.py)
@@ -60,6 +64,16 @@ Classes inherited from Base Model:
 * `def new(self, obj)` - sets in __objects the obj with key <obj class name>.id
 * `def save(self)` - serializes __objects to the JSON file (path: __file_path)
 * ` def reload(self)` -  deserializes the JSON file to __objects
+* `def get(self, cls, id):` - Returns the object based on the class name and its ID, or None if not found
+* `def count(self, cls=None):` - Returns the number of objects in storage matching the given class name
+
+### api/v1/views/ - directory file contains a new view for objects
+* `api/v1/views/states.py` - create a new view for state
+* `api/v1/views/city.py` - create a new vie for cities
+* `api/v1/views/Amenity.py` - create a new view for amenity
+* `api/v1/views/User.py` - create a new view for User 
+* `api/v1/views/Place.py` - create a new vie for Place
+* `api/v1/views/Reviews.py` - create a new view for Reviews
 
 #### `/tests` directory contains all unit test cases for this project:
 [/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
@@ -157,6 +171,9 @@ No known bugs at this time.
 Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
 
+Santiago Peña (https://github.com/santiagopemo/AirBnB_clone_v3)
+Christian Nazareno (https://github.com/ch-canaza/AirBnB_clone_v3)
+
 Second part of Airbnb: Joann Vuong
 ## License
-Public Domain. No copy write protection. 
+Public Domain. No copy write protection.
