@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""cities Module"""
+"""places Module"""
 from api.v1.views import app_views
 from models import storage
 from models.place import Place
