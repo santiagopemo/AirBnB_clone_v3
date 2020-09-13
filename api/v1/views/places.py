@@ -5,6 +5,8 @@ from models import storage
 from models.place import Place
 from models.city import City
 from models.user import User
+from models.state import State
+from models.amenity import Amenity
 from flask import abort, jsonify, request
 
 
@@ -83,3 +85,46 @@ def update_place(place_id):
             setattr(place, key, value)
     place.save()
     return jsonify(place.to_dict())
+
+
+@app_views.route('/places_search', methods=['POST'], strict_slashes=False)
+def places_search():
+    """retrieves all Place objects depending of the request JSON"""
+    request_dict = request.get_json()
+    if request_dict is None:
+        abort(400, 'Not a JSON')
+    states = request_dict.get('states', [])
+    cities = request_dict.get('cities', [])
+    amenities = request_dict.get('amenities', [])
+    all_places = []
+    places = []
+    if not states == []:
+        for state_id in states:
+            state = storage.get(State, state_id)
+            if state:
+                for city in state.cities:
+                    all_places.extend(city.places)
+    if not cities == []:
+        for city_id in cities:
+            city = storage.get(City, city_id)
+            if city:
+                all_places.extend(city.places)
+    if cities == [] and states == []:
+        all_places = list(storage.all(Place).values())
+    if not amenities == []:
+        places_amenities = []
+        for amenity_id in amenities:
+            amenity = storage.get(Amenity, amenity_id)
+            if amenity:
+                places_amenities.append(amenity.id)
+        for place in all_places:
+            if len(place.amenities) > 0:
+                for amenity in place.amenities:
+                    if amenity.id not in places_amenities:
+                        break
+                else:
+                    places.append(place.to_dict())
+    else:
+        for place in all_places:
+            places.append(place.to_dict())
+    return jsonify(places)
